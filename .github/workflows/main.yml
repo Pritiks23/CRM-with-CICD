@@ -1,0 +1,39 @@
+name: Fire CRM CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install HTML/CSS/JS linters
+      run: |
+        npm install -g htmlhint stylelint eslint
+
+    - name: Lint HTML
+      run: htmlhint index.html
+
+    - name: Lint CSS
+      run: stylelint "**/*.css"
+
+    - name: Lint JS
+      run: eslint --ext .js .
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
