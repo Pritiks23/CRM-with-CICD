@@ -1,22 +1,20 @@
-name: Deploy Static Site
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main  # or 'master' if that's your default branch
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout your repository
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      # 2. Upload files for Pages deployment (latest version)
-      - uses: actions/upload-pages-artifact@v2
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
         with:
-          path: ./        # Deploy all files in the root
-
-      # 3. Deploy to GitHub Pages (latest supported)
-      - uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .  # the root of your repo, where index.html is
