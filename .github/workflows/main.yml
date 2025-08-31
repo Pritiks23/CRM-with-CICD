@@ -1,24 +1,23 @@
-name: Deploy Fire CRM to GitHub Pages
+name: Simple GitHub Pages Deploy
 
 on:
   push:
     branches:
-      - main  # Trigger on push to main
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout your repository
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      # 1. Checkout repository
+      - uses: actions/checkout@v3
 
       # 2. Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          branch: gh-pages       # Branch to deploy to (will be created automatically)
-          folder: ./             # Deploy root folder (index.html at root)
-          clean: true            # Remove old files
-          token: ${{ secrets.GITHUB_TOKEN }}  # Uses built-in token for permissions
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./          # Root folder containing index.html
+          publish_branch: gh-pages # Branch will be created automatically
+          user_name: github-actions
+          user_email: github-actions@users.noreply.github.com
