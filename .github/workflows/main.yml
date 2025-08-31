@@ -1,4 +1,4 @@
-name: Simple GitHub Pages Deploy
+name: GitHub Pages Deploy
 
 on:
   push:
@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout your repository
+      # 1. Checkout repo
       - uses: actions/checkout@v3
 
-      # 2. Deploy to GitHub Pages using v4
-      - uses: JamesIves/github-pages-deploy-action@v4
+      # 2. Deploy using JamesIves v4
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages       # Branch to deploy to
-          folder: ./             # Folder to deploy (root of repo)
-          clean: true            # Remove old files in gh-pages
-
+          branch: gh-pages      # Branch to deploy to
+          folder: ./            # Deploy root folder
+          clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub Actions token
