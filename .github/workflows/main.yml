@@ -1,4 +1,4 @@
-name: CI/CD for Fire CRM
+name: Simple GitHub Pages Deploy
 
 on:
   push:
@@ -6,21 +6,17 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       # 1. Checkout your repository
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2. Upload files for GitHub Pages deployment
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v2
+      # 2. Deploy to GitHub Pages using v4
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: .
-
-      # 3. Deploy to GitHub Pages
-      - name: Deploy to Pages
-        uses: actions/deploy-pages@v1
+          branch: gh-pages       # Branch to deploy to
+          folder: ./             # Folder to deploy (root of repo)
+          clean: true            # Remove old files in gh-pages
 
