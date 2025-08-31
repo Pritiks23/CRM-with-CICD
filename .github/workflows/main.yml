@@ -1,4 +1,4 @@
-name: Deploy Static Site Artifact
+name: Deploy Static Site
 
 on:
   push:
@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository
+      # 1. Checkout your repository
       - uses: actions/checkout@v3
 
-      # 2. Upload everything in the repo as a Pages artifact
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v2
+      # 2. Upload files for Pages deployment (latest version)
+      - uses: actions/upload-pages-artifact@v2
         with:
-          path: ./       # Upload root folder
+          path: ./        # Deploy all files in the root
 
-      # 3. Deploy artifact to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      # 3. Deploy to GitHub Pages (latest supported)
+      - uses: actions/deploy-pages@v1
