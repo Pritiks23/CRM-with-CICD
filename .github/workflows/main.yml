@@ -10,13 +10,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # Avoid token issues
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
-          # Force push to avoid branch conflicts
-          force_orphan: true
+          force_orphan: true         # Force a fresh gh-pages branch
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
