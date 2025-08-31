@@ -17,4 +17,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .  # the root of your repo, where index.html is
+          publish_dir: CRM-with-CICD
